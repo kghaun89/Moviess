@@ -1,0 +1,63 @@
+﻿@model Moviess.ViewModels.CustomerFormViewModel
+@{
+    ViewBag.Title = "CustomerForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Customer Info</h2>
+
+@using (Html.BeginForm("Save", "Customer"))
+{
+    <hr />
+    <div class="form-group">
+        @Html.Label("Required Information") <br />
+        @Html.TextBoxFor(m => m.customer.Name, new { @class = "form-control", placeholder = "Customer Name" })
+        @Html.ValidationMessageFor(m => m.customer.Name)<br />
+
+        @Html.LabelFor(m => m.customer.Add)
+        @Html.TextBoxFor(m => m.customer.Add, new { @class = "form-control", placeholder = "Street Address" })
+        @Html.ValidationMessageFor(m => m.customer.Add)<br />
+
+        @Html.TextBoxFor(m => m.customer.City, new { @class = "form-control", placeholder = "City" })
+        @Html.ValidationMessageFor(m => m.customer.City)<br />
+
+        @Html.TextBoxFor(m => m.customer.State, new { @class = "form-control", placeholder = "State (xx)", maxlength = "2" })
+        @Html.ValidationMessageFor(m => m.customer.State)<br />
+
+        @Html.TextBoxFor(m => m.customer.Zip, "{0:#.#}", new { @class = "form-control", placeholder = "Zipcode", @type = "number" })
+        @Html.ValidationMessageFor(m => m.customer.Zip)<br />
+
+        @Html.TextBoxFor(m => m.customer.Phone, "{0:#.#}", new { @class = "form-control", placeholder = "Phone", @type = "tel" })
+        @Html.ValidationMessageFor(m => m.customer.Phone)<br />
+
+        @Html.LabelFor(m => m.customer.MembershipTypeID)
+
+        @Html.DropDownListFor(m => m.customer.MembershipTypeID, new SelectList(Model.MembershipTypes, "Id", "Name"), "Select MembershipType", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.customer.MembershipTypeID)<br />
+
+    </div>
+    <hr />
+
+    <div class="form-group">
+        @Html.Label("Optional Info")<br />
+        @Html.TextBoxFor(m => m.customer.Birthdate, "{0:d MMM yyyy}", new { @class = "form-control", placeholder = "Birthdate (YYYY-MM-DD)" })
+        @Html.ValidationMessageFor(m => m.customer.Birthdate)
+    </div>
+
+    <div class="checkbox">
+        <label>
+            @Html.CheckBoxFor(m => m.customer.IsSubscribed) Subscribe to Newsletter?
+        </label>
+    </div>
+    <hr />
+
+    @Html.HiddenFor(m => m.customer.Id);
+    @Html.AntiForgeryToken();
+<button type="Submit" class="btn btn-info"> Save </button>
+    
+}
+
+@section scripts 
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}

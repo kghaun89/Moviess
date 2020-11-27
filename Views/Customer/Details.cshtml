@@ -1,0 +1,44 @@
+﻿@model Moviess.Models.Customer
+
+@{
+    ViewBag.Title = Model.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h1>Customer Details</h1>
+<div>
+    <dl class="row">
+        <dt class="col-sm-3">Customer Name:</dt>
+        <dd class="col-sm-9">@Model.Name</dd>
+        <dt class="col-sm-3 text-truncate">Customer ID:</dt>
+        <dd class="col-sm-9">@Model.Id</dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-sm-3">Contact Information</dt>
+        <dd class="col-sm-9">
+            @Model.Add<br />
+            @Model.City , @Model.State , @Model.Zip<br /><br />
+            phone: @Model.Phone</dd>
+       
+    </dl>
+
+    <dl class="row">
+        @if (Model.Birthdate.HasValue)
+        {
+          <dt class="col-sm-3">Birthday:</dt>
+          <dd class="col-sm-9">
+              @Model.Birthdate.Value.ToShortDateString()
+          </dd>
+        }
+    </dl>
+</div>
+
+
+
+
+
+
+
+
+
